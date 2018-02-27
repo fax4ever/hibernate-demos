@@ -49,6 +49,14 @@ public class Post {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date moment = new Date();
 
+	public Post() {
+	}
+
+	public Post(String username, String body) {
+		this.username = username;
+		this.body = body;
+	}
+
 	public void setUsername(String username) {
 		this.username = username;
 	}

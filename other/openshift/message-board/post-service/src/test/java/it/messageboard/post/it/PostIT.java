@@ -56,10 +56,7 @@ public class PostIT {
 	@Test
 	public void test() throws Exception {
 
-		Post post = new Post();
-
-		post.setUsername( "fax4ever" );
-		post.setBody( "Here I'm" );
+		Post post = new Post( "fax4ever", "Here I'm" );
 		post.addTag( "music" );
 
 		ut.begin();
