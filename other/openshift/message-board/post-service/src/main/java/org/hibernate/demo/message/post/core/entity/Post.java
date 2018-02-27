@@ -23,6 +23,7 @@ import org.hibernate.annotations.CascadeType;
 import org.hibernate.search.annotations.Analyze;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * @author Fabio Massimo Ercoli
@@ -33,17 +34,19 @@ public class Post {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "post_gen")
-	@SequenceGenerator(name = "post_gen", sequenceName = "post_seq", initialValue = 0)
+	@SequenceGenerator(name = "post_gen", sequenceName = "post_seq", initialValue = 1)
 	private Long id;
 
 	@Field(analyze= Analyze.NO)
+	@NotEmpty
 	private String username;
 
 	@Field(analyze=Analyze.YES)
+	@NotEmpty
 	private String body;
 
 	@OneToMany
-	@Cascade( CascadeType.PERSIST )
+	@Cascade(CascadeType.PERSIST)
 	private Set<Tag> tags = new HashSet<>();
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -57,31 +60,8 @@ public class Post {
 		this.body = body;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public void setBody(String body) {
-		this.body = body;
-	}
-
 	public void addTag(String tagName) {
 		this.tags.add( new Tag( tagName ) );
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		if ( this == o ) return true;
-		if ( o == null || getClass() != o.getClass() ) return false;
-
-		Post post = (Post) o;
-
-		return id.equals( post.id );
-	}
-
-	@Override
-	public int hashCode() {
-		return id.hashCode();
 	}
 
 	@Override
