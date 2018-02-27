@@ -4,7 +4,7 @@
  * License: GNU Lesser General Public License (LGPL), version 2.1 or later
  * See the lgpl.txt file in the root directory or <http://www.gnu.org/licenses/lgpl-2.1.html>.
  */
-package org.messageboard.post.core.entity;
+package org.hibernate.demo.message.post.core.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -21,7 +21,7 @@ public class Tag {
 	@NotEmpty
 	private String name;
 
-	public Tag() {
+	private Tag() {
 	}
 
 	public Tag(String name) {

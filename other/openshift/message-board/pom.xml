@@ -22,6 +22,7 @@
         <module>account-service</module>
         <module>post-service</module>
         <module>message-board-web</module>
+        <module>test-util</module>
     </modules>
 
     <dependencyManagement>

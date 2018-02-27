@@ -4,14 +4,13 @@
  * License: GNU Lesser General Public License (LGPL), version 2.1 or later
  * See the lgpl.txt file in the root directory or <http://www.gnu.org/licenses/lgpl-2.1.html>.
  */
-package it.messageboard.post.it;
+package org.hibernate.demo.message.post.it;
 
+import static org.hibernate.demo.message.test.util.TestUtil.inTransaction;
 import static org.junit.Assert.assertEquals;
 
 import java.io.File;
-import java.util.Collections;
 import java.util.List;
-
 import javax.inject.Inject;
 import javax.transaction.UserTransaction;
 
@@ -25,8 +24,8 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 
 import org.slf4j.Logger;
 
-import org.messageboard.post.core.entity.Post;
-import org.messageboard.post.core.repo.PostRepo;
+import org.hibernate.demo.message.post.core.entity.Post;
+import org.hibernate.demo.message.post.core.repo.PostRepo;
 
 /**
  * @author Fabio Massimo Ercoli
@@ -38,7 +37,11 @@ public class PostIT {
 	public static WebArchive create() {
 		return ShrinkWrap
 			.create( WebArchive.class, "post-service.war" )
-			.addPackages( true, "org.messageboard.post.core" )
+			.addPackages( true, "org.hibernate.demo.message.post.core" )
+
+			// only for test
+			.addPackages( true, "org.hibernate.demo.message.test" )
+
 			.addAsResource( "META-INF/persistence.xml" )
 			.addAsResource( "hotrodclient.properties" )
 			.addAsWebInfResource( new File( "src/main/webapp/WEB-INF/jboss-deployment-structure.xml" ) );
@@ -56,12 +59,12 @@ public class PostIT {
 	@Test
 	public void test() throws Exception {
 
-		Post post = new Post( "fax4ever", "Here I'm" );
+		Post post = new Post( "fax4ever", "Here I am!" );
 		post.addTag( "music" );
 
-		ut.begin();
-		repo.add( post );
-		ut.commit();
+		inTransaction( ut, ut -> {
+			repo.add( post );
+		} );
 
 		List<Post> posts = repo.findByUsername( "fax4ever" );
 		log.info( "Founded posts: {}", posts );

@@ -9,6 +9,8 @@
             <property name="jboss.as.jpa.providerModule" value="org.hibernate:5.2"/>
             <property name="wildfly.jpa.hibernate.search.module" value="org.hibernate.search.orm:5.9" />
 
+            <!-- TODO: change configuration to ELK or Infinispan -->
+            <!-- TODO: add to slides -->
             <property name="hibernate.search.default.directory_provider" value="ram" />
 
             <property name="hibernate.ogm.datastore.provider" value="infinispan_remote" />

@@ -4,7 +4,7 @@
  * License: GNU Lesser General Public License (LGPL), version 2.1 or later
  * See the lgpl.txt file in the root directory or <http://www.gnu.org/licenses/lgpl-2.1.html>.
  */
-package org.messageboard.post.core.repo;
+package org.hibernate.demo.message.post.core.repo;
 
 import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
@@ -12,12 +12,12 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.validation.Valid;
 
+import org.hibernate.demo.message.post.core.entity.Post;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.Search;
 import org.hibernate.search.query.dsl.QueryBuilder;
 
 import org.apache.lucene.search.Query;
-import org.messageboard.post.core.entity.Post;
 
 /**
  * @author Fabio Massimo Ercoli
