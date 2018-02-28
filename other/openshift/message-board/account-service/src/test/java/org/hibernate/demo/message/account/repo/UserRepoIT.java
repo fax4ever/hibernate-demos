@@ -37,13 +37,12 @@ public class UserRepoIT {
 	@Deployment
 	public static WebArchive create() {
 		return ShrinkWrap
-				.create( WebArchive.class, "post-service.war" )
+				.create( WebArchive.class, "account-service.war" )
 				.addPackages( true, "org.hibernate.demo.message.account.core" )
 
 				// only for test
 				.addPackages( true, "org.hibernate.demo.message.test" )
 
-				.addAsWebInfResource( new File( "src/main/webapp/WEB-INF/jboss-deployment-structure.xml" ) )
 				.addAsResource( new StringAsset( persistenceXml().exportAsString() ), "META-INF/persistence.xml" );
 	}
 
@@ -57,6 +56,7 @@ public class UserRepoIT {
 				.getOrCreateProperties()
 				.createProperty().name( "hibernate.hbm2ddl.auto" ).value( "create-drop" ).up()
 				.createProperty().name( "hibernate.allow_update_outside_transaction" ).value( "true" ).up()
+				.createProperty().name( "jboss.as.jpa.providerModule" ).value( "org.hibernate:5.2" ).up()
 				.up().up();
 	}
 
