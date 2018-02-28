@@ -20,7 +20,11 @@ import org.junit.runner.RunWith;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.shrinkwrap.descriptor.api.Descriptors;
+import org.jboss.shrinkwrap.descriptor.api.persistence21.PersistenceDescriptor;
+import org.jboss.shrinkwrap.descriptor.api.persistence21.PersistenceUnitTransactionType;
 
 import org.slf4j.Logger;
 
@@ -42,9 +46,26 @@ public class PostIT {
 			// only for test
 			.addPackages( true, "org.hibernate.demo.message.test" )
 
-			.addAsResource( "META-INF/persistence.xml" )
+			.addAsResource( new StringAsset( persistenceXml().exportAsString() ), "META-INF/persistence.xml" )
 			.addAsResource( "hotrodclient.properties" )
 			.addAsWebInfResource( new File( "src/main/webapp/WEB-INF/jboss-deployment-structure.xml" ) );
+	}
+
+	private static PersistenceDescriptor persistenceXml() {
+		return Descriptors.create( PersistenceDescriptor.class )
+				.version( "2.1" )
+				.createPersistenceUnit()
+				.name( "primary" )
+				.transactionType( PersistenceUnitTransactionType._JTA )
+				.provider( "org.hibernate.ogm.jpa.HibernateOgmPersistence" )
+				.getOrCreateProperties()
+				.createProperty().name( "jboss.as.jpa.providerModule" ).value( "org.hibernate:5.2" ).up()
+				.createProperty().name( "wildfly.jpa.hibernate.search.module" ).value( "org.hibernate.search.orm:5.9" ).up()
+				.createProperty().name( "hibernate.search.default.directory_provider" ).value( "ram" ).up()
+				.createProperty().name( "hibernate.ogm.datastore.provider" ).value( "infinispan_remote" ).up()
+				.createProperty().name( "hibernate.ogm.infinispan_remote.configuration_resource_name" ).value( "hotrodclient.properties" ).up()
+				.createProperty().name( "hibernate.ogm.datastore.create_database" ).value( "true" ).up()
+				.up().up();
 	}
 
 	@Inject
