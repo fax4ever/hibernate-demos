@@ -30,7 +30,10 @@ public class TestUtil {
 			if ( transaction.isActive() ) {
 				transaction.rollback();
 			}
-			throw t;
+			if ( RuntimeException.class.isInstance( t ) ) {
+				throw (RuntimeException) t;
+			}
+			throw new RuntimeException( t );
 		}
 	}
 
@@ -43,13 +46,16 @@ public class TestUtil {
 		}
 		catch (Throwable t) {
 			try {
-				if (utx.getStatus() == Status.STATUS_ACTIVE) {
+				if ( utx.getStatus() == Status.STATUS_ACTIVE ) {
 					utx.rollback();
 				}
-			} catch (SystemException ex) {
+			}
+			catch (SystemException ex) {
 				throw new RuntimeException( ex );
 			}
-
+			if ( RuntimeException.class.isInstance( t ) ) {
+				throw (RuntimeException) t;
+			}
 			throw new RuntimeException( t );
 		}
 	}
