@@ -23,6 +23,12 @@ public class UserRepo {
 	@Inject
 	private EntityManager em;
 
+	public UserRepo(){}
+
+	public UserRepo(EntityManager em) {
+		this.em = em;
+	}
+
 	public void add(@Valid User user) {
 		em.persist( user );
 	}
@@ -31,6 +37,17 @@ public class UserRepo {
 		Query query = em.createQuery( "from User u where u.userName = :userName" );
 		query.setParameter( "userName", userName );
 		return (User) query.getSingleResult();
+	}
+
+	public void delete(String userName) {
+		Query query = em.createQuery( "delete from User u where u.userName = :userName" );
+		query.setParameter( "userName", userName );
+		query.executeUpdate();
+	}
+
+	public void deleteAll() {
+		Query query = em.createQuery( "delete from User" );
+		query.executeUpdate();
 	}
 
 }

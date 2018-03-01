@@ -6,13 +6,14 @@
  */
 package org.hibernate.demo.message.account.repo;
 
-import java.io.File;
 import javax.inject.Inject;
+import javax.persistence.NoResultException;
 import javax.transaction.UserTransaction;
 
 import org.hibernate.demo.message.account.core.entity.User;
 import org.hibernate.demo.message.account.core.repo.UserRepo;
 
+import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -74,6 +75,36 @@ public class UserRepoIT {
 		} );
 
 		assertNotNull( user.getId() );
+	}
+
+	@Test
+	public void testDeleteAllUsers(){
+		User user = new User( "hibernate" );
+		inTransaction( utx, ut -> {
+			repo.add( user );
+		} );
+
+		assertNotNull( user.getId() );
+
+		inTransaction( utx, ut -> {
+			repo.deleteAll();
+		} );
+	}
+
+	@Test(expected = NoResultException.class)
+	public void testFindByUserNameOfNoExistingUser() {
+		String userName = "hibernate";
+		inTransaction( utx, ut -> {
+			User result = repo.findByUserName( userName );
+			assertNotNull( result );
+		} );
+	}
+
+	@After
+	public void tearDown() {
+		inTransaction( utx, ut -> {
+			repo.deleteAll();
+		} );
 	}
 
 }
