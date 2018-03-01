@@ -26,18 +26,22 @@ public class User {
 	private Long id;
 
 	@NotEmpty
-	private String username;
+	private String userName;
 
+	/*
+		JPA requires a default constructor, it can be private
+	 */
+	private User(){}
 
-	public User(String username) {
-		this.username = username;
+	public User(String userName) {
+		this.userName = userName;
 	}
 
 	public Long getId() {
 		return id;
 	}
 
-	public String getUsername() {
-		return username;
+	public String getUserName() {
+		return userName;
 	}
 }
