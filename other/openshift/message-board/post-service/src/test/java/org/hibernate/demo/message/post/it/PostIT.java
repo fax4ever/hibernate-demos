@@ -78,7 +78,7 @@ public class PostIT {
 	private Logger log;
 
 	@Test
-	public void test() throws Exception {
+	public void test() {
 
 		Post post = new Post( "fax4ever", "Here I am!" );
 		post.addTag( "music" );
@@ -87,10 +87,12 @@ public class PostIT {
 			repo.add( post );
 		} );
 
-		List<Post> posts = repo.findByUsername( "fax4ever" );
-		log.info( "Founded posts: {}", posts );
+		inTransaction( ut, ut -> {
+			List<Post> posts = repo.findByUser( "fax4ever" );
+			log.info( "Founded posts: {}", posts );
 
-		assertEquals( 1, posts.size() );
+			assertEquals( 1, posts.size() );
+		} );
 
 	}
 

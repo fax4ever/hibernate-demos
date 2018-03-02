@@ -64,6 +64,10 @@ public class Post {
 		this.tags.add( new Tag( tagName ) );
 	}
 
+	public Long getId() {
+		return id;
+	}
+
 	@Override
 	public String toString() {
 		return "Post{" +

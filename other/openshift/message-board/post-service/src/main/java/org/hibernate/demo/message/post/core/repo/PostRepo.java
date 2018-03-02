@@ -28,6 +28,13 @@ public class PostRepo {
 	@Inject
 	private EntityManager em;
 
+	public PostRepo() {
+	}
+
+	public PostRepo(EntityManager em) {
+		this.em = em;
+	}
+
 	public void add(@Valid Post post) {
 		em.persist(post);
 	}
@@ -42,6 +49,14 @@ public class PostRepo {
 			.createQuery();
 
 		return fullTextEntityManager.createFullTextQuery(query, Post.class).getResultList();
+	}
+
+	public List<Post> findByUser(String username) {
+
+		javax.persistence.Query query = em.createQuery( "from Post u where u.username = :username" );
+		query.setParameter( "username", username );
+		return query.getResultList();
+
 	}
 
 }
