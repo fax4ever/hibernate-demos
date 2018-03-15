@@ -8,6 +8,7 @@ import {LoginComponent} from './login/login.component';
 const routes: Routes = [
   { path: '', redirectTo: '/message', pathMatch: 'full' },
   { path: 'message', component: MessageComponent },
+  { path: 'message/:userName', component: MessageComponent },
   { path: 'login', component: LoginComponent },
 ];
 

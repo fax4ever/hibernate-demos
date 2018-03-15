@@ -1,3 +1,19 @@
-<p>
-  message works!
-</p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-3">
+      <div class="float-right">
+        <a *ngFor="let user of users" routerLink="/message/{{user.userName}}"
+           [class.selected]="user === selectedUser"
+           (click)="onSelect(user)">
+          <h4>
+            <span class="badge badge-secondary">{{ user.id }}</span>
+            {{ user.userName }}
+          </h4>
+        </a>
+      </div>
+    </div>
+    <div class="col-lg-9">
+      <app-board-detail [userName]="userName"></app-board-detail>
+    </div>
+  </div>
+</div>

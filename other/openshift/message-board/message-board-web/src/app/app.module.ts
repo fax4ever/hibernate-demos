@@ -12,7 +12,6 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { SigninComponent } from './signin/signin.component';
 import { BoardDetailComponent } from './board-detail/board-detail.component';
-import { BoardListComponent } from './board-list/board-list.component';
 import { PostMessageComponent } from './post-message/post-message.component';
 import { MessageComponent } from './message/message.component';
 
@@ -29,7 +28,6 @@ import { MessageComponent } from './message/message.component';
     LoginComponent,
     SigninComponent,
     BoardDetailComponent,
-    BoardListComponent,
     PostMessageComponent,
     MessageComponent
   ],

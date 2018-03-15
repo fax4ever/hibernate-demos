@@ -1,15 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+
+import { Message } from '../message';
+import { MessageService }  from '../message.service';
 
 @Component({
   selector: 'app-board-detail',
-  templateUrl: './board-detail.component.html',
-  styleUrls: ['./board-detail.component.css']
+  templateUrl: './board-detail.component.html'
 })
 export class BoardDetailComponent implements OnInit {
+  @Input() userName: string;
+  messages: Message[];
 
-  constructor() { }
+  constructor( private service: MessageService ) { }
 
   ngOnInit() {
+    this.getMessages();
+  }
+
+  getMessages(): void {
+    this.service.findMessagesByUsername(this.userName)
+      .subscribe(messages => this.messages = messages);
   }
 
 }
