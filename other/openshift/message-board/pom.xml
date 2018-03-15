@@ -20,7 +20,7 @@
 
     <modules>
         <module>account-service</module>
-        <module>post-service</module>
+        <module>message-service</module>
         <module>test-util</module>
     </modules>
 

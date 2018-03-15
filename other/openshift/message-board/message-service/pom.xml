@@ -9,7 +9,7 @@
         <artifactId>message-board</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
-    <artifactId>post-service</artifactId>
+    <artifactId>message-service</artifactId>
     <packaging>war</packaging>
 
     <properties>

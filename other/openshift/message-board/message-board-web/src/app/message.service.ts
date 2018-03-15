@@ -17,7 +17,7 @@ export class MessageService {
       // if not search term, return empty message array.
       return of([]);
     }
-    return this.http.get<Message[]>(`post-service/messages?username={term}`);
+    return this.http.get<Message[]>(`http://localhost:8080/message-service/messages?username={term}`);
   }
 
 }

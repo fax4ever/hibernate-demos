@@ -15,7 +15,7 @@ public class DeploymentUtil {
 	@Deployment
 	public static WebArchive create() {
 		return ShrinkWrap
-			.create( WebArchive.class, "post-service.war" )
+			.create( WebArchive.class, "message-service.war" )
 			.addPackages( true, "org.hibernate.demo.message.post.core" )
 
 			// only for test

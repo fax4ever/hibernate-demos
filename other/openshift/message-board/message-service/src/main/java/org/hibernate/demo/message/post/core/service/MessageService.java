@@ -9,14 +9,15 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import org.hibernate.demo.message.post.core.entity.Post;
 import org.hibernate.demo.message.post.core.repo.PostRepo;
 
-@Path( "/" )
+@Path( "/messages" )
 @Stateless
-public class PostService {
+public class MessageService {
 
 	@Inject
 	private PostRepo repo;
@@ -27,9 +28,8 @@ public class PostService {
 	}
 
 	@GET
-	@Path( "{username}" )
 	@Produces( MediaType.APPLICATION_JSON )
-	public List<Post> findPostByUser( @PathParam( "username" ) String username ) {
+	public List<Post> findPostByUser( @QueryParam( "username" ) String username ) {
 
 		return repo.findByUser( username );
 
