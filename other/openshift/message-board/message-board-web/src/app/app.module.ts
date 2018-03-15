@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { LoginService } from './login.service';
 import { LoginComponent } from './login/login.component';
 import { SigninComponent } from './signin/signin.component';
-import { AppRoutingModule } from './/app-routing.module';
+import { AppRoutingModule } from './app-routing.module';
 
 
 @NgModule({
