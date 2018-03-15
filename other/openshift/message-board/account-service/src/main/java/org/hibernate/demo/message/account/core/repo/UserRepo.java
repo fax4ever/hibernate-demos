@@ -6,6 +6,7 @@
  */
 package org.hibernate.demo.message.account.core.repo;
 
+import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -23,7 +24,8 @@ public class UserRepo {
 	@Inject
 	private EntityManager em;
 
-	public UserRepo(){}
+	public UserRepo() {
+	}
 
 	public UserRepo(EntityManager em) {
 		this.em = em;
@@ -50,4 +52,7 @@ public class UserRepo {
 		query.executeUpdate();
 	}
 
+	public List<User> findAll() {
+		return em.createQuery( "from User" ).getResultList();
+	}
 }
