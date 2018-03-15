@@ -19,10 +19,15 @@ import org.hibernate.demo.message.test.BaseEntityManagerFunctionalTestCase;
 
 import org.junit.Test;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * @author Fabio Massimo Ercoli
  */
 public class PostRepoTest extends BaseEntityManagerFunctionalTestCase {
+
+	private static final Logger LOG = LoggerFactory.getLogger( PostRepoTest.class );
 
 	@Override
 	protected Class<?>[] getAnnotatedClasses() {
@@ -36,7 +41,7 @@ public class PostRepoTest extends BaseEntityManagerFunctionalTestCase {
 		post.addTag( "music" );
 
 		doInJPA( this::entityManagerFactory, entityManager -> {
-			PostRepo repo = new PostRepo( entityManager );
+			PostRepo repo = new PostRepo( entityManager, LOG );
 
 			repo.add( post );
 
