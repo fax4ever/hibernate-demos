@@ -2,14 +2,9 @@
     <feature-packs>
 
         <feature-pack
-                groupId="org.wildfly"
-                artifactId="wildfly-feature-pack"
-                version="${version.wildfly}" />
-
-        <feature-pack
-                groupId="org.hibernate"
-                artifactId="hibernate-search-jbossmodules-orm"
-                version="${version.hibernate.search}" />
+            groupId="org.wildfly"
+            artifactId="wildfly-feature-pack"
+            version="${version.wildfly}" />
 
     </feature-packs>
 </server-provisioning>

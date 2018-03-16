@@ -1,5 +1,6 @@
 package org.hibernate.demo.message.post.core.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -31,7 +32,8 @@ public class MessageService {
 	@Produces( MediaType.APPLICATION_JSON )
 	public List<Post> findPostByUser( @QueryParam( "username" ) String username ) {
 
-		return repo.findByUser( username );
+		//TODO: must to implement
+		return new ArrayList<>(  );
 
 	}
 

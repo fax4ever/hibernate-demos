@@ -7,9 +7,6 @@
 package org.hibernate.demo.message.post.it;
 
 import static org.hibernate.demo.message.test.util.TestUtil.inTransaction;
-import static org.junit.Assert.assertEquals;
-
-import java.util.List;
 import javax.inject.Inject;
 import javax.transaction.UserTransaction;
 
@@ -54,27 +51,6 @@ public class PostIT {
 
 		inTransaction( ut, ut -> {
 			repo.add( post );
-		} );
-
-		inTransaction( ut, ut -> {
-			List<Post> posts = repo.findByUser( "fax4ever" );
-			log.info( "Founded posts: {}", posts );
-
-			assertEquals( 1, posts.size() );
-		} );
-
-		inTransaction( ut, ut -> {
-			List<Post> posts = repo.findByUser( "fax4ever" );
-			log.info( "Founded posts: {}", posts );
-
-			assertEquals( 1, posts.size() );
-		} );
-
-		inTransaction( ut, ut -> {
-			List<Post> posts = repo.findByUser( "fax4ever" );
-			log.info( "Founded posts: {}", posts );
-
-			assertEquals( 1, posts.size() );
 		} );
 
 	}

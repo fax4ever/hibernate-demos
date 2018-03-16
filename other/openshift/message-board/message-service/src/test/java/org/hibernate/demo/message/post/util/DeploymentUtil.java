@@ -35,8 +35,6 @@ public class DeploymentUtil {
 			.provider( "org.hibernate.ogm.jpa.HibernateOgmPersistence" )
 			.getOrCreateProperties()
 			.createProperty().name( "jboss.as.jpa.providerModule" ).value( "org.hibernate:5.2" ).up()
-			.createProperty().name( "wildfly.jpa.hibernate.search.module" ).value( "org.hibernate.search.orm:5.9" ).up()
-			.createProperty().name( "hibernate.search.default.directory_provider" ).value( "ram" ).up()
 			.createProperty().name( "hibernate.ogm.datastore.provider" ).value( "infinispan_remote" ).up()
 			.createProperty().name( "hibernate.ogm.infinispan_remote.configuration_resource_name" ).value( "hotrodclient.properties" ).up()
 			.createProperty().name( "hibernate.ogm.datastore.create_database" ).value( "true" ).up()

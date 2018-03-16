@@ -15,7 +15,6 @@
     <properties>
         <version.hibernate.ogm>5.3.0.Final</version.hibernate.ogm>
         <version.hibernate.orm>5.2.13.Final</version.hibernate.orm>
-        <version.hibernate.search>5.9.0.Final</version.hibernate.search>
         <version.infinispan>9.1.6.Final</version.infinispan>
 
         <classifier.wildfly>wildfly-11-dist</classifier.wildfly>
@@ -42,12 +41,6 @@
         <dependency>
             <groupId>org.hibernate.ogm</groupId>
             <artifactId>hibernate-ogm-infinispan-remote</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-search-orm</artifactId>
             <scope>provided</scope>
         </dependency>
 
@@ -220,7 +213,7 @@
             </plugin>
 
             <plugin>
-                <!-- Hibernate Search Wildfly modules -->
+                <!-- Wildfly -->
                 <groupId>org.wildfly.build</groupId>
                 <artifactId>wildfly-server-provisioning-maven-plugin</artifactId>
                 <executions>

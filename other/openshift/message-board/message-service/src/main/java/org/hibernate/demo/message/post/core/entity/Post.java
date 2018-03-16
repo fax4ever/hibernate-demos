@@ -20,16 +20,12 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
-import org.hibernate.search.annotations.Analyze;
-import org.hibernate.search.annotations.Field;
-import org.hibernate.search.annotations.Indexed;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * @author Fabio Massimo Ercoli
  */
 @Entity
-@Indexed
 public class Post {
 
 	@Id
@@ -37,11 +33,9 @@ public class Post {
 	@SequenceGenerator(name = "post_gen", sequenceName = "post_seq", initialValue = 1)
 	private Long id;
 
-	@Field(analyze= Analyze.NO)
 	@NotEmpty
 	private String username;
 
-	@Field(analyze=Analyze.YES)
 	@NotEmpty
 	private String body;
 
