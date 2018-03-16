@@ -17,6 +17,8 @@
 
         <classifier.wildfly>wildfly-11-dist</classifier.wildfly>
 
+        <name.wildfly>wildfly-${version.wildfly}</name.wildfly>
+
         <home.wildfly>${project.build.directory}/wildfly-${version.wildfly}</home.wildfly>
     </properties>
 
@@ -130,6 +132,23 @@
         </testResources>
 
         <plugins>
+            <plugin>
+                <groupId>org.wildfly.build</groupId>
+                <artifactId>wildfly-server-provisioning-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>wildfly-server</id>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                        <phase>compile</phase>
+                        <configuration>
+                            <config-file>provisioning-wildfly.xml</config-file>
+                            <server-name>${name.wildfly}</server-name>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <version>3.0.1</version>

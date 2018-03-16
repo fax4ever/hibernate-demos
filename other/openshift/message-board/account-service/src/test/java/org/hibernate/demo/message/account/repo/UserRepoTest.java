@@ -6,6 +6,7 @@
  */
 package org.hibernate.demo.message.account.repo;
 
+import java.util.List;
 import javax.persistence.NoResultException;
 
 import org.hibernate.demo.message.account.core.entity.User;
@@ -15,7 +16,9 @@ import org.hibernate.demo.message.test.BaseEntityManagerFunctionalTestCase;
 import org.hibernate.testing.transaction.TransactionUtil;
 import org.junit.Test;
 
+import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
 
 /**
  * @author Andrea Boriero
@@ -85,6 +88,21 @@ public class UserRepoTest extends BaseEntityManagerFunctionalTestCase {
 		TransactionUtil.doInJPA( this::entityManagerFactory, entityManager -> {
 			UserRepo repo = new UserRepo( entityManager );
 			repo.findByUserName( userName );
+		} );
+	}
+
+	@Test
+	public void findAllTest(){
+		TransactionUtil.doInJPA( this::entityManagerFactory, entityManager -> {
+			UserRepo repo = new UserRepo( entityManager );
+			repo.add( new User( "hibernate_orm" ) );
+			repo.add( new User("hibernate_ogm") );
+		} );
+
+		TransactionUtil.doInJPA( this::entityManagerFactory, entityManager -> {
+			UserRepo repo = new UserRepo( entityManager );
+			List<User> users = repo.findAll();
+			assertThat( users.size(), is(2) );
 		} );
 	}
 }
