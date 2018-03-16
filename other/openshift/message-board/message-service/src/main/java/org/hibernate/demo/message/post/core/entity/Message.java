@@ -8,8 +8,10 @@ package org.hibernate.demo.message.post.core.entity;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,7 +28,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  * @author Fabio Massimo Ercoli
  */
 @Entity
-public class Post {
+public class Message {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "post_gen")
@@ -39,17 +41,17 @@ public class Post {
 	@NotEmpty
 	private String body;
 
-	@OneToMany
+	@OneToMany(fetch = FetchType.EAGER)
 	@Cascade(CascadeType.PERSIST)
 	private Set<Tag> tags = new HashSet<>();
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date moment = new Date();
 
-	private Post() {
+	private Message() {
 	}
 
-	public Post(String username, String body) {
+	public Message(String username, String body) {
 		this.username = username;
 		this.body = body;
 	}
@@ -62,14 +64,37 @@ public class Post {
 		return id;
 	}
 
+	public String getUsername() {
+		return username;
+	}
+
 	@Override
 	public String toString() {
-		return "Post{" +
-			"id=" + id +
-			", username='" + username + '\'' +
-			", body='" + body + '\'' +
-			", tags=" + tags +
-			", moment=" + moment +
-			'}';
+		return "Message{" +
+				"id=" + id +
+				", username='" + username + '\'' +
+				", body='" + body + '\'' +
+				", tags=" + tags +
+				", moment=" + moment +
+				'}';
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if ( this == o ) {
+			return true;
+		}
+		if ( o == null || getClass() != o.getClass() ) {
+			return false;
+		}
+		Message message = (Message) o;
+		return Objects.equals( username, message.username ) &&
+				Objects.equals( moment, message.moment );
+	}
+
+	@Override
+	public int hashCode() {
+
+		return Objects.hash( username, moment );
 	}
 }

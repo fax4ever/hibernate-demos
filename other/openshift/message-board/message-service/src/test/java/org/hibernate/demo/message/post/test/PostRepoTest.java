@@ -9,9 +9,9 @@ package org.hibernate.demo.message.post.test;
 import static org.hibernate.testing.transaction.TransactionUtil.doInJPA;
 import static org.junit.Assert.assertNotNull;
 
-import org.hibernate.demo.message.post.core.entity.Post;
+import org.hibernate.demo.message.post.core.entity.Message;
 import org.hibernate.demo.message.post.core.entity.Tag;
-import org.hibernate.demo.message.post.core.repo.PostRepo;
+import org.hibernate.demo.message.post.core.repo.MessageRepo;
 import org.hibernate.demo.message.test.BaseEntityManagerFunctionalTestCase;
 
 import org.junit.Test;
@@ -24,22 +24,19 @@ import org.slf4j.LoggerFactory;
  */
 public class PostRepoTest extends BaseEntityManagerFunctionalTestCase {
 
-	private static final Logger LOG = LoggerFactory.getLogger( PostRepoTest.class );
-
 	@Override
 	protected Class<?>[] getAnnotatedClasses() {
-		return new Class[] { Post.class, Tag.class };
+		return new Class[] { Message.class, Tag.class };
 	}
 
 	@Test
 	public void createUserTest() {
 
-		Post post = new Post( "fax4ever", "Here I am!" );
+		Message post = new Message( "fax4ever", "Here I am!" );
 		post.addTag( "music" );
 
 		doInJPA( this::entityManagerFactory, entityManager -> {
-			PostRepo repo = new PostRepo( entityManager, LOG );
-
+			MessageRepo repo = new MessageRepo( entityManager );
 			repo.add( post );
 
 			assertNotNull( post.getId() );

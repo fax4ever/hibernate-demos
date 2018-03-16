@@ -11,7 +11,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.validation.Valid;
 
-import org.hibernate.demo.message.post.core.entity.Post;
+import org.hibernate.demo.message.post.core.entity.Message;
 
 import org.slf4j.Logger;
 
@@ -19,23 +19,19 @@ import org.slf4j.Logger;
  * @author Fabio Massimo Ercoli
  */
 @ApplicationScoped
-public class PostRepo {
-
-	@Inject
-	private Logger log;
+public class MessageRepo {
 
 	@Inject
 	private EntityManager em;
 
-	public PostRepo() {
+	public MessageRepo() {
 	}
 
-	public PostRepo(EntityManager em, Logger log) {
+	public MessageRepo(EntityManager em) {
 		this.em = em;
-		this.log = log;
 	}
 
-	public void add(@Valid Post post) {
+	public void add(@Valid Message post) {
 		em.persist(post);
 	}
 
