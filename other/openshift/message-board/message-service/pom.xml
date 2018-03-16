@@ -19,8 +19,11 @@
 
         <classifier.wildfly>wildfly-11-dist</classifier.wildfly>
 
-        <home.wildfly>${project.build.directory}/wildfly-${version.wildfly}</home.wildfly>
-        <home.infinispan>${project.build.directory}/infinispan-server-${version.infinispan}</home.infinispan>
+        <name.wildfly>wildfly-${version.wildfly}</name.wildfly>
+        <name.infinispan>infinispan-server-${version.infinispan}</name.infinispan>
+
+        <home.wildfly>${project.build.directory}/${name.wildfly}</home.wildfly>
+        <home.infinispan>${project.build.directory}/${name.infinispan}</home.infinispan>
     </properties>
 
     <dependencyManagement>
@@ -143,6 +146,36 @@
         </testResources>
 
         <plugins>
+
+            <plugin>
+                <groupId>org.wildfly.build</groupId>
+                <artifactId>wildfly-server-provisioning-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>wildfly-server</id>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                        <phase>compile</phase>
+                        <configuration>
+                            <config-file>provisioning-wildfly.xml</config-file>
+                            <server-name>${name.wildfly}</server-name>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>infinispan-server</id>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                        <phase>compile</phase>
+                        <configuration>
+                            <config-file>provisioning-infinispan.xml</config-file>
+                            <server-name>${name.infinispan}</server-name>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
             <plugin>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <version>3.0.1</version>
@@ -155,17 +188,6 @@
                         </goals>
                         <configuration>
                             <artifactItems>
-
-                                <!-- Wildfly Application Server -->
-                                <artifactItem>
-                                    <groupId>org.wildfly</groupId>
-                                    <artifactId>wildfly-dist</artifactId>
-                                    <version>${version.wildfly}</version>
-                                    <type>zip</type>
-                                    <overWrite>false</overWrite>
-                                    <outputDirectory>${project.build.directory}</outputDirectory>
-                                </artifactItem>
-
                                 <!-- Hibernate OGM Wildfly modules -->
                                 <artifactItem>
                                     <groupId>org.hibernate.ogm</groupId>
@@ -197,35 +219,7 @@
                                     <overWrite>true</overWrite>
                                     <outputDirectory>${home.wildfly}/modules</outputDirectory>
                                 </artifactItem>
-
-                                <!-- Infinispan Server -->
-                                <artifactItem>
-                                    <groupId>org.infinispan.server</groupId>
-                                    <artifactId>infinispan-server-build</artifactId>
-                                    <version>${version.infinispan}</version>
-                                    <type>zip</type>
-                                    <outputDirectory>${project.build.directory}</outputDirectory>
-                                </artifactItem>
                             </artifactItems>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <!-- Wildfly -->
-                <groupId>org.wildfly.build</groupId>
-                <artifactId>wildfly-server-provisioning-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>server-provisioning</id>
-                        <goals>
-                            <goal>build</goal>
-                        </goals>
-                        <phase>compile</phase>
-                        <configuration>
-                            <config-file>server-provisioning.xml</config-file>
-                            <server-name>wildfly-${version.wildfly}</server-name>
                         </configuration>
                     </execution>
                 </executions>
@@ -251,6 +245,7 @@
                     </execution>
                 </executions>
             </plugin>
+
         </plugins>
     </build>
 

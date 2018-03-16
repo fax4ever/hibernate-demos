@@ -7,10 +7,7 @@
 package org.hibernate.demo.message.post.test;
 
 import static org.hibernate.testing.transaction.TransactionUtil.doInJPA;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-
-import java.util.List;
 
 import org.hibernate.demo.message.post.core.entity.Post;
 import org.hibernate.demo.message.post.core.entity.Tag;
@@ -46,10 +43,6 @@ public class PostRepoTest extends BaseEntityManagerFunctionalTestCase {
 			repo.add( post );
 
 			assertNotNull( post.getId() );
-
-			List<Post> posts = repo.findByUser( "fax4ever" );
-
-			assertEquals( 1, posts.size() );
 
 		} );
 	}
