@@ -2,6 +2,8 @@ package org.hibernate.demo.message.post.core.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
@@ -15,8 +17,10 @@ import javax.ws.rs.core.MediaType;
 
 import org.hibernate.demo.message.post.core.entity.Board;
 import org.hibernate.demo.message.post.core.entity.Message;
+import org.hibernate.demo.message.post.core.entity.Tag;
 import org.hibernate.demo.message.post.core.repo.BoardRepo;
 import org.hibernate.demo.message.post.core.repo.MessageRepo;
+import org.hibernate.demo.message.post.core.repo.TagRepo;
 
 @Path( "/messages" )
 @Stateless
@@ -27,6 +31,9 @@ public class MessageService {
 
 	@Inject
 	private BoardRepo boards;
+
+	@Inject
+	private TagRepo tags;
 
 	@Inject
 	private Event<Message> event;
@@ -47,6 +54,13 @@ public class MessageService {
 	@POST
 	@Consumes( MediaType.APPLICATION_JSON )
 	public void insertPost( Message message ) {
+
+		Set<Tag> tagSet = message.getTags().stream().map( tag -> {
+			Tag loaded = tags.find( tag.toString() );
+			return ( loaded != null ) ? loaded : tag;
+		} ).collect( Collectors.toSet() );
+
+		message.setTags( tagSet );
 
 		messages.add( message );
 		event.fire( message );

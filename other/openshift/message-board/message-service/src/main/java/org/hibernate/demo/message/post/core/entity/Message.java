@@ -60,12 +60,24 @@ public class Message {
 		this.tags.add( new Tag( tagName ) );
 	}
 
+	public Set<Tag> getTags() {
+		return tags;
+	}
+
 	public Long getId() {
 		return id;
 	}
 
 	public String getUsername() {
 		return username;
+	}
+
+	public String getBody() {
+		return body;
+	}
+
+	public void setTags(Set<Tag> tags) {
+		this.tags = tags;
 	}
 
 	@Override
@@ -97,4 +109,5 @@ public class Message {
 
 		return Objects.hash( username, moment );
 	}
+
 }

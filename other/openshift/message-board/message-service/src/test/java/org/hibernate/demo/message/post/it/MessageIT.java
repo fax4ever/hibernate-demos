@@ -32,7 +32,8 @@ import org.slf4j.Logger;
 @RunWith(Arquillian.class)
 public class MessageIT {
 
-	public static final String USERNAME = "fax4ever";
+	public static final String USERNAME = "fercoli";
+	public static final String USERNAME_2 = "aboriero";
 
 	@Deployment
 	public static WebArchive create() {
@@ -48,6 +49,9 @@ public class MessageIT {
 	Message post1;
 	Message post2;
 	Message post3;
+	Message post4;
+	Message post5;
+	Message post6;
 
 	@Before
 	public void before() {
@@ -60,36 +64,55 @@ public class MessageIT {
 		post2.addTag( "stuff" );
 		post3.addTag( "play" );
 
+		post4 = new Message( USERNAME_2, "Hello!" );
+		post5 = new Message( USERNAME_2, "Hello! II" );
+		post6 = new Message( USERNAME_2, "Hello! III" );
+
+		post4.addTag( "music" );
+		post5.addTag( "stuff" );
+		post6.addTag( "play" );
+
 		testSubject.insertPost( post1 );
 		testSubject.insertPost( post2 );
 		testSubject.insertPost( post3 );
+		testSubject.insertPost( post4 );
+		testSubject.insertPost( post5 );
+		testSubject.insertPost( post6 );
 
 	}
 
 	@Test
 	public void test() throws Exception {
 
-		List<Message> messages = null;
+		List<Message> fabioMessages = null;
+		List<Message> andreaMessages = null;
 
-		for (int i=0; i<10; i++) {
-			messages = testSubject.findMessagesByUser( USERNAME );
-			log.info( "{} messages is now present on board: {}", messages.size(), messages );
+		for (int i=0; i<20; i++) {
+			fabioMessages = testSubject.findMessagesByUser( USERNAME );
+			andreaMessages = testSubject.findMessagesByUser( USERNAME_2 );
+			log.info( "{} fabioMessages is now present on board: {}", fabioMessages.size(), fabioMessages );
+			log.info( "{} andreaMessages is now present on board: {}", andreaMessages.size(), andreaMessages );
 
-			if (messages.size() == 3) {
+			if (fabioMessages.size() == 3 && andreaMessages.size() == 3) {
 				break;
 			}
 
-			if (i >= 10) {
+			if (i == 19) {
 				fail();
 			}
 
-			Thread.sleep( 100 );
+			Thread.sleep( 300 );
 		}
 
 		// order is not important!
-		assertTrue( messages.contains( post1 ) );
-		assertTrue( messages.contains( post2 ) );
-		assertTrue( messages.contains( post3 ) );
+		assertTrue( fabioMessages.contains( post1 ) );
+		assertTrue( fabioMessages.contains( post2 ) );
+		assertTrue( fabioMessages.contains( post3 ) );
+
+		// order is not important!
+		assertTrue( andreaMessages.contains( post4 ) );
+		assertTrue( andreaMessages.contains( post5 ) );
+		assertTrue( andreaMessages.contains( post6 ) );
 
 	}
 
