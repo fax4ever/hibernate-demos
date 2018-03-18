@@ -5,10 +5,10 @@
         <a *ngFor="let user of users" routerLink="/message/{{user.userName}}"
            [class.selected]="user === selectedUser"
            (click)="onSelect(user)">
-          <h4>
+          
             <span class="badge badge-secondary">{{ user.id }}</span>
             {{ user.userName }}
-          </h4>
+          
         </a>
       </div>
     </div>
