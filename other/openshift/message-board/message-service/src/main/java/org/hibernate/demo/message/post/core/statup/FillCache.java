@@ -1,5 +1,6 @@
 package org.hibernate.demo.message.post.core.statup;
 
+import java.util.UUID;
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
@@ -22,17 +23,20 @@ public class FillCache {
 
 	@PostConstruct
 	public void onInit() {
-		messages[0] = new Message( USERNAME, "Here I am!" );
-		messages[1] = new Message( USERNAME, "Here I am! II" );
-		messages[2] = new Message( USERNAME, "Here I am! III" );
+
+		String uuid = UUID.randomUUID() + " :: ";
+
+		messages[0] = new Message( USERNAME, uuid + "Here I am!" );
+		messages[1] = new Message( USERNAME, uuid + "Here I am! II" );
+		messages[2] = new Message( USERNAME, uuid + "Here I am! III" );
 
 		messages[0].addTag( "music" );
 		messages[1].addTag( "stuff" );
 		messages[2].addTag( "play" );
 
-		messages[3] = new Message( USERNAME_2, "Hello!" );
-		messages[4] = new Message( USERNAME_2, "Hello! II" );
-		messages[5] = new Message( USERNAME_2, "Hello! III" );
+		messages[3] = new Message( USERNAME_2, uuid + "Hello!" );
+		messages[4] = new Message( USERNAME_2, uuid + "Hello! II" );
+		messages[5] = new Message( USERNAME_2, uuid + "Hello! III" );
 
 		messages[3].addTag( "music" );
 		messages[4].addTag( "stuff" );

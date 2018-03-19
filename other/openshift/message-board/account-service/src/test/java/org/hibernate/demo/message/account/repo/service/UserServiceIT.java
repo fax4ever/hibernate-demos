@@ -6,6 +6,7 @@
  */
 package org.hibernate.demo.message.account.repo.service;
 
+import javax.ejb.EJBException;
 import javax.inject.Inject;
 
 import org.hibernate.demo.message.account.core.entity.User;
@@ -32,9 +33,8 @@ public class UserServiceIT {
 	@Inject
 	private UserService userService;
 
-	@Test
+	@Test(expected = EJBException.class)
 	public void testFindUser(){
-		User non_existing_user = userService.findByUsername( "NON_EXISTING_USER" );
-
+		userService.findByUsername( "NON_EXISTING_USER" );
 	}
 }

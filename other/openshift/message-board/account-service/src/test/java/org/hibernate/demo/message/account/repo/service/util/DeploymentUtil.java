@@ -1,7 +1,5 @@
 package org.hibernate.demo.message.account.repo.service.util;
 
-import java.io.File;
-
 import org.hibernate.Session;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -26,9 +24,7 @@ public class DeploymentUtil {
 			// only for test
 			.addPackages( true, "org.hibernate.demo.message.test" )
 
-			.addAsResource( new StringAsset( persistenceXml().exportAsString() ), "META-INF/persistence.xml" )
-			.addAsResource( "hotrodclient.properties" )
-			.addAsWebInfResource( new File( "src/main/webapp/WEB-INF/jboss-deployment-structure.xml" ) );
+			.addAsResource( new StringAsset( persistenceXml().exportAsString() ), "META-INF/persistence.xml" );
 	}
 
 	private static PersistenceDescriptor persistenceXml() {
