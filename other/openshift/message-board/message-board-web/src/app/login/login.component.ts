@@ -11,7 +11,7 @@ import {User} from '../user';
 })
 export class LoginComponent implements OnInit {
 
-  user: User;
+  user: User = {'id': 0, 'userName': ''};
   loading = false;
   returnUrl: string;
 
@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
     this.loginService.logout();
 
     // get return url from route parameters or default to '/'
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'message';
   }
 
   login() {
@@ -30,9 +30,11 @@ export class LoginComponent implements OnInit {
     this.loginService.login(this.user.userName)
       .subscribe(
       data => {
+        console.log('login succes');
         this.router.navigate([this.returnUrl]);
       },
       error => {
+        console.log('login failed');
         this.loading = false;
       });
   }
