@@ -22,25 +22,33 @@ public class MessageListener {
 	@Inject
 	private Logger log;
 
-	@Asynchronous
 	@Lock(LockType.READ)
-	public void addMessageToBoard(@Observes Message message) {
+	public void addMessageWithSyncOnUsername(@Observes Message message) {
 
 		// should be implemented server side
 		// it is safe only with single client
+		// TODO: evolve this in a serialized stream username scoped
 		synchronized (message.getUsername().intern()) {
-			Board board = boards.find( message.getUsername() );
-
-			if ( board == null ) {
-				boards.add( new Board( message ) );
-				return;
-			}
-
-			board.pushMessage( message );
-			boards.update( board );
-
-			log.info( "add message {} to the board {}", message.getBody(), message.getUsername()  );
+			addMessageToBoard(message);
 		}
+
+	}
+
+	@Asynchronous
+	@Lock(LockType.READ)
+	public void addMessageToBoard(Message message) {
+
+		Board board = boards.find( message.getUsername() );
+
+		if ( board == null ) {
+			boards.add( new Board( message ) );
+			return;
+		}
+
+		board.pushMessage( message );
+		boards.update( board );
+
+		log.info( "add message {} to the board {}", message.getBody(), message.getUsername()  );
 
 	}
 

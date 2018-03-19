@@ -32,15 +32,22 @@ public class PostRepoTest extends BaseEntityManagerFunctionalTestCase {
 	@Test
 	public void createUserTest() {
 
-		Message post = new Message( "fax4ever", "Here I am!" );
+		Message post = new Message( "mirko", "Here I am!" );
 		post.addTag( "music" );
 
 		doInJPA( this::entityManagerFactory, entityManager -> {
 			MessageRepo repo = new MessageRepo( entityManager );
 			repo.add( post );
 
-			assertNotNull( post.getId() );
+			Long id = post.getId();
+			assertNotNull( id );
+		} );
 
+		doInJPA( this::entityManagerFactory, entityManager -> {
+			MessageRepo repo = new MessageRepo( entityManager );
+			Message message = repo.findById( post.getId() );
+
+			assertNotNull( message );
 		} );
 	}
 

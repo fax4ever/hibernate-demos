@@ -35,4 +35,8 @@ public class MessageRepo {
 		em.persist(post);
 	}
 
+	public Message findById( Long id ) {
+		return em.find( Message.class, id );
+	}
+
 }
