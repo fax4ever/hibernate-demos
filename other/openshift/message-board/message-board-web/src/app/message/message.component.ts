@@ -9,7 +9,7 @@ import {User} from '../user';
 })
 export class MessageComponent implements OnInit {
 
-  selectedUser: User;
+  currentUser: User;
   // TODO: use UserService
   users: User[] = [
     {'id': 1, 'userName': 'sanne'},
@@ -22,20 +22,17 @@ export class MessageComponent implements OnInit {
     {'id': 8, 'userName': 'gunnar'}
   ];
 
-  userName: string;
+  selectedUser: User;
 
-  constructor(private route: ActivatedRoute) {}
-
-  ngOnInit() {
-    this.refreshUserName();
+  constructor(private route: ActivatedRoute) {
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
   }
 
-  refreshUserName(): void {
-    this.userName = this.route.snapshot.paramMap.get('userName');
+  ngOnInit() {
   }
 
   onSelect(user: User): void {
-    this.userName = user.userName;
+    this.selectedUser = user;
   }
 
 }

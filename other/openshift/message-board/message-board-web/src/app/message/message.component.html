@@ -1,19 +1,19 @@
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-lg-3">
-      <div class="float-right">
-        <a *ngFor="let user of users" routerLink="/message/{{user.userName}}"
-           [class.selected]="user === selectedUser"
-           (click)="onSelect(user)">
-          
-            <span class="badge badge-secondary">{{ user.id }}</span>
-            {{ user.userName }}
-          
-        </a>
-      </div>
-    </div>
-    <div class="col-lg-9">
-      <app-board-detail [userName]="userName"></app-board-detail>
-    </div>
-  </div>
+	<div class="row">
+		<div class="col-lg-3">
+			<div class="float-right">
+			<ul>
+			
+				<li *ngFor="let user of users"
+					[class.selected]="user === selectedUser" (click)="onSelect(user)">
+					<span class="badge">{{user.id}}</span>{{user.userName}}
+
+				</li>
+				</ul>
+			</div>
+			<div *ngIf="selectedUser" class="col-lg-9">
+				<app-board-detail [userName]="selectedUser.userName"></app-board-detail>
+			</div>
+		</div>
+	</div>
 </div>
