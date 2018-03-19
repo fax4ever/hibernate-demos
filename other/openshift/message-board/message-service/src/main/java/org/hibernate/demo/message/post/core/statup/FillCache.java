@@ -13,8 +13,8 @@ import org.hibernate.demo.message.post.core.service.MessageService;
 @Startup
 public class FillCache {
 
-	public static final String USERNAME = "fercoli";
-	public static final String USERNAME_2 = "aboriero";
+	public static final String USERNAME = "fabio";
+	public static final String USERNAME_2 = "andrea";
 
 	public Message[] messages = new Message[6];
 
