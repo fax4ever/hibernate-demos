@@ -1,0 +1,35 @@
+# Hibernate Demo: Message Board
+Data MicroService Demo.
+
+Made with Hibernate ORM, Hibernate OGM and Infinispan for OpenShift Container Platform. 
+
+## Install demo
+
+### Create the project
+----
+oc new-project message-board
+----
+
+### Install Infinispan Server
+----
+git clone git@github.com:infinispan/infinispan-openshift-templates.git
+git reset --hard HEAD~1 (for Infinispan 9.1.x)
+oc create -f templates/infinispan-persistent.json
+oc new-app infinispan-persistent
+----
+
+### Install Messages MicroService
+----
+[https://access.redhat.com/containers]
+oc import-image my-jboss-eap-7/eap71-openshift --from=registry.access.redhat.com/jboss-eap-7/eap71-openshift --confirm
+<from message-service dir>
+oc new-app eap71-openshift~./ --name=message-service
+oc start-build message-service --from-dir=./
+----
+
+### Install Account MicroService
+----
+oc new-app eap71-openshift~./ --name=account-service
+<from account-service dir>
+oc start-build account-service --from-dir=./
+----
