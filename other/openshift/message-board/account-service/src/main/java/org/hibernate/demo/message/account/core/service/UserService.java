@@ -13,8 +13,8 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import org.hibernate.demo.message.account.core.entity.User;
@@ -26,6 +26,7 @@ import org.hibernate.demo.message.account.core.repo.UserRepo;
 @Path("/user")
 @Stateless
 public class UserService {
+
 	@Inject
 	private UserRepo repo;
 
@@ -36,8 +37,9 @@ public class UserService {
 	}
 
 	@GET
+	@Path( "{username}" )
 	@Produces(MediaType.APPLICATION_JSON)
-	public User findByUsername(@QueryParam("username") String username) {
+	public User findByUsername(@PathParam("username") String username) {
 		return repo.findByUserName( username );
 	}
 
