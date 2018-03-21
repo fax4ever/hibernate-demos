@@ -15,7 +15,13 @@ oc new-project message-board
 git clone git@github.com:infinispan/infinispan-openshift-templates.git
 git reset --hard HEAD~1 (for Infinispan 9.1.x)
 oc create -f templates/infinispan-persistent.json
-oc new-app infinispan-persistent
+oc new-app --template=infinispan-persistent
+----
+
+### Install MySql Server
+----
+oc describe template mysql-persistent --namespace=openshift
+oc new-app mysql-persistent -e MYSQL_USER=messageboard MYSQL_PASSWORD=redhat MYSQL_ROOT_PASSWORD=hibernate MYSQL_DATABASE=account
 ----
 
 ### Install Messages MicroService
@@ -23,13 +29,19 @@ oc new-app infinispan-persistent
 [https://access.redhat.com/containers]
 oc import-image my-jboss-eap-7/eap71-openshift --from=registry.access.redhat.com/jboss-eap-7/eap71-openshift --confirm
 <from message-service dir>
-oc new-app eap71-openshift~./ --name=message-service
+oc new-app --image-stream=eap71-openshift:latest~./nocontent--name=message-service
 oc start-build message-service --from-dir=./
 ----
 
 ### Install Account MicroService
 ----
-oc new-app eap71-openshift~./ --name=account-service
+oc new-app --image-stream=eap71-openshift~./nocontent -e DB_SERVICE_PREFIX_MAPPING="account-mysql=MYSQL" -e MYSQL_USERNAME=messageboard -e MYSQL_PASSWORD=redhat -e MYSQL_DATABASE=account --name=account-service
 <from account-service dir>
 oc start-build account-service --from-dir=./
+
+POOLNAME => account
+DATABASETYPE => mysql
+PREFIX => MYSQL
+
+[java:jboss/datasources/account_mysql]
 ----
