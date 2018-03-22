@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 rm -fr account-service
 rm -fr message-service
 rm -fr nocontent
