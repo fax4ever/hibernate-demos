@@ -38,7 +38,8 @@ activemq-data
 # Message Board #
 #################
 
+script/nocontent
 script/account-service
 script/message-service
-script/nocontent
+script/message-board-web
 !*sh
