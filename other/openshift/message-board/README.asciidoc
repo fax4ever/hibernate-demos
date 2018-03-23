@@ -20,3 +20,35 @@ sh ./binary-build-account.sh
 cd script
 sh ./binary-build-message.sh
 ----
+
+## Test
+
+### Web [FORM]
+
+[YOUR-IP] is a generate IP by OCP like 192.168.42.120
+
+----
+http://web-message-board.[YOUR-IP].nip.io
+----
+
+click on __andrea__ or __fabio__
+
+### Message MicroService [REST]
+#### with proxy
+----
+http://web-message-board.[YOUR-IP].nip.io/message-service/messages?username=andrea
+----
+#### without proxy
+----
+http://message-service-message-board.[YOUR-IP].nip.io/message-service/messages?username=andrea
+----
+
+### Account MicroService [REST]
+#### with proxy
+----
+http://web-message-board.[YOUR-IP].nip.io/account-service/user
+----
+#### without proxy
+----
+http://account-service-message-board.[YOUR-IP].nip.io/account-service/user
+----

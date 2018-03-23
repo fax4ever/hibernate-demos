@@ -31,6 +31,6 @@ oc expose svc/account-service
 oc import-image my-rhscl/nginx-112-rhel7 --from=registry.access.redhat.com/rhscl/nginx-112-rhel7 --confirm
 oc new-app --image-stream=nginx-112-rhel7:latest~./nocontent --name=message-board-web
 oc start-build message-board-web --from-dir=./message-board-web --follow
-oc expose svc/message-board-web
+oc expose svc/message-board-web --name=web
 
 oc get routes
