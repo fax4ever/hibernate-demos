@@ -9,12 +9,24 @@ import { MessageService }  from '../message.service';
 })
 export class BoardDetailComponent implements OnInit {
 
-  @Input() userName: string;
+  private _userName: string;
   messages: Message[];
 
   constructor( private service: MessageService ) { }
 
   ngOnInit() {
+    console.log("init BoardDetailComponent");
+    this.getMessages();
+  }
+
+  get userName(): string {
+    return this._userName;
+  }
+
+  @Input()
+  set userName(userName: string) {
+    console.log("user changed: " + this._userName + " -> " + userName);
+    this._userName = userName;
     this.getMessages();
   }
 

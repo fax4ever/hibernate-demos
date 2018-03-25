@@ -13,7 +13,7 @@ export class MessageService {
 
   /* GET heroes whose name contains search term */
   findMessagesByUsername(term: string): Observable<Message[]> {
-    if (!term.trim()) {
+    if (!term || !term.trim()) {
       // if not search term, return empty message array.
       return of([]);
     }
