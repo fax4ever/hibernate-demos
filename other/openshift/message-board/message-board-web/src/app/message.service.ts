@@ -11,7 +11,6 @@ export class MessageService {
 
   constructor( private http: HttpClient ) { }
 
-  /* GET heroes whose name contains search term */
   findMessagesByUsername(term: string): Observable<Message[]> {
     if (!term || !term.trim()) {
       // if not search term, return empty message array.

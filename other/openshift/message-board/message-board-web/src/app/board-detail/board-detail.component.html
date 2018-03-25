@@ -1,2 +1,6 @@
-{{ userName }}
-{{ messages | json }}
+<div class="container">
+  <h2>{{ userName }}</h2>
+  <div *ngFor="let message of messages" class="panel panel-default">
+    <div class="panel-body">{{ message | json }}</div>
+  </div>
+</div>
