@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -e
 # Web Application
 
 # Clear build folder
