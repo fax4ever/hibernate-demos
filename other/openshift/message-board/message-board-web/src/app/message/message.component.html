@@ -11,7 +11,7 @@
         </a>
       </div>
     </div>
-    <div class="col-lg-9">
+    <div *ngIf="userName" class="col-lg-9">
       <app-board-detail [userName]="userName"></app-board-detail>
     </div>
   </div>
