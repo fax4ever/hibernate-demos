@@ -6,9 +6,6 @@ mvn -f ../pom.xml clean install
 # Create binary build distribution
 sh ./create-binary-build-directory.sh
 
-# Create project
-oc new-project message-board
-
 # Install Infinispan Server
 # Infinispan template taken from here: https://github.com/infinispan/infinispan-openshift-templates
 oc create -f ../template/infinispan-persistent.json

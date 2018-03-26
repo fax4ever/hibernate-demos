@@ -5,13 +5,17 @@
  * See the lgpl.txt file in the root directory or <http://www.gnu.org/licenses/lgpl-2.1.html>.
  */
 package org.hibernate.demo.message.post.it;
+
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.util.Arrays;
 import java.util.List;
-
 import javax.inject.Inject;
+
+import org.hibernate.demo.message.post.core.entity.Message;
+import org.hibernate.demo.message.post.core.service.MessageService;
+import org.hibernate.demo.message.post.core.service.exception.ResourceNotFoundException;
+import org.hibernate.demo.message.post.util.DeploymentUtil;
 
 import org.junit.After;
 import org.junit.Before;
@@ -21,11 +25,6 @@ import org.junit.runner.RunWith;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-
-import org.hibernate.demo.message.post.core.entity.Message;
-import org.hibernate.demo.message.post.core.service.MessageService;
-import org.hibernate.demo.message.post.core.service.exception.ResourceNotFoundException;
-import org.hibernate.demo.message.post.util.DeploymentUtil;
 
 import org.slf4j.Logger;
 
@@ -58,17 +57,9 @@ public class MessageLoadIT {
 		messages[1] = new Message( USERNAME, "Here I am! II" );
 		messages[2] = new Message( USERNAME, "Here I am! III" );
 
-		messages[0].addTag( "music" );
-		messages[1].addTag( "stuff" );
-		messages[2].addTag( "play" );
-
 		messages[3] = new Message( USERNAME_2, "Hello!" );
 		messages[4] = new Message( USERNAME_2, "Hello! II" );
 		messages[5] = new Message( USERNAME_2, "Hello! III" );
-
-		messages[3].addTag( "music" );
-		messages[4].addTag( "stuff" );
-		messages[5].addTag( "play" );
 
 		for (int i=0; i<messages.length; i++) {
 			testSubject.addMessage( messages[i] );
@@ -88,27 +79,13 @@ public class MessageLoadIT {
 	}
 
 	@Test
-	public void test() throws Exception {
+	public void test() {
 
 		List<Message> fabioMessages = null;
 		List<Message> andreaMessages = null;
 
-		for (int i=0; i<20; i++) {
-			fabioMessages = testSubject.findMessagesByUser( USERNAME );
-			andreaMessages = testSubject.findMessagesByUser( USERNAME_2 );
-			log.info( "{} fabioMessages is now present on board: {}", fabioMessages.size(), fabioMessages );
-			log.info( "{} andreaMessages is now present on board: {}", andreaMessages.size(), andreaMessages );
-
-			if (fabioMessages.size() == 3 && andreaMessages.size() == 3) {
-				break;
-			}
-
-			if (i == 19) {
-				fail( "attempts exhausted to retrieve board messages" );
-			}
-
-			Thread.sleep( 300 );
-		}
+		fabioMessages = testSubject.findMessagesByUser( USERNAME );
+		andreaMessages = testSubject.findMessagesByUser( USERNAME_2 );
 
 		// order is not important!
 		for ( int i=0; i<3; i++ ) {

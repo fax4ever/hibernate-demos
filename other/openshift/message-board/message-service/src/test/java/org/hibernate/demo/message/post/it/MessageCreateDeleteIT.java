@@ -89,6 +89,41 @@ public class MessageCreateDeleteIT {
 		for (Long id : messageIds) {
 			messageService.deleteMessage( id );
 		}
+		messageIds.clear();
+
+	}
+
+	@Test
+	public void test_cleanUpTheBoard() throws Exception {
+
+		// add 3 messages
+		for (int i=0; i<3; i++) {
+			Message message = new Message( USERNAME, "---Message content: " + i + "---" );
+			messageService.addMessage( message );
+			messageIds.add( message.getId() );
+		}
+
+		// clean up the board
+		for (Long id : messageIds) {
+			messageService.deleteMessage( id );
+		}
+		messageIds.clear();
+
+		// re-add 3 messages
+		for (int i=0; i<3; i++) {
+			Message message = new Message( USERNAME, "---Message content: " + i + "---" );
+			messageService.addMessage( message );
+			messageIds.add( message.getId() );
+		}
+
+		List<Message> loadedMessages = messageService.findMessagesByUser( USERNAME );
+		assertEquals( 3, loadedMessages.size() );
+
+		// clean up
+		for (Long id : messageIds) {
+			messageService.deleteMessage( id );
+		}
+		messageIds.clear();
 
 	}
 

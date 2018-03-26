@@ -25,4 +25,8 @@ public class BoardRepo {
 		em.merge( board );
 	}
 
+	public void delete( Board board ) {
+		em.remove( board );
+	}
+
 }

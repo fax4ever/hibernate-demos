@@ -6,6 +6,10 @@ Made with Hibernate ORM, Hibernate OGM and Infinispan for OpenShift Container Pl
 ## Install demo
 ----
 cd script
+
+oc login -u [YOUR-USER-NAME]
+oc new-project [YOUR-PROJECT-NAME]
+
 sh ./install-all.sh
 ----
 
@@ -25,7 +29,9 @@ sh ./binary-build-message.sh
 
 ### Web [FORM]
 
-[YOUR-IP] is a generate IP by OCP like 192.168.42.120
+[YOUR-USER-NAME] is your OCP username like **developer**
+[YOUR-PROJECT-NAME] is your OCP project like **message-board**
+[YOUR-IP] is a generate IP by OCP like **192.168.42.120**
 
 ----
 http://web-message-board.[YOUR-IP].nip.io

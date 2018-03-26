@@ -4,7 +4,7 @@
       <div class="form-group">
         <textarea [(ngModel)]="text" class="form-control" rows="5"></textarea>
       </div>
-      <button class="btn btn-danger" (click)="postMessage()">Public</button>
+      <button [disabled]="!text" class="btn btn-danger" (click)="postMessage()">Public</button>
     </div>
   </div>
 </div>

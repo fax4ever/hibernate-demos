@@ -31,7 +31,7 @@ public class Board {
 		this.messages.add( firstMessage );
 	}
 
-	public List<Message> getMessagesFromLast() {
+	public List<Message> getMessages() {
 		return messages.stream().sorted( Collections.reverseOrder() ).collect( Collectors.toList() );
 	}
 
@@ -40,6 +40,14 @@ public class Board {
 			((LinkedList)messages).removeFirst();
 		}
 		messages.add( message );
+	}
+
+	public void popMessage(Message message) {
+		this.messages.remove( message );
+	}
+
+	public boolean isEmpty() {
+		return this.messages.isEmpty();
 	}
 
 	@Override
@@ -56,19 +64,14 @@ public class Board {
 
 	@Override
 	public int hashCode() {
-
 		return Objects.hash( username );
 	}
 
 	@Override
 	public String toString() {
 		return "Board{" +
-				"username='" + username + '\'' +
-				", messages=" + messages +
-				'}';
-	}
-
-	public void deleteMessage(Message message) {
-		this.messages.remove( message );
+			"username='" + username + '\'' +
+			", messages=" + messages +
+			'}';
 	}
 }
