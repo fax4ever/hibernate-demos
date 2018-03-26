@@ -65,4 +65,8 @@ public class Board {
 				", messages=" + messages +
 				'}';
 	}
+
+	public void deleteMessage(Message message) {
+		this.messages.remove( message );
+	}
 }

@@ -39,4 +39,7 @@ public class MessageRepo {
 		return em.find( Message.class, id );
 	}
 
+	public void remove(Message message) {
+		em.remove( message );
+	}
 }
