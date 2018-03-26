@@ -1,8 +1,10 @@
 package org.hibernate.demo.message.post.core.entity;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -29,8 +31,8 @@ public class Board {
 		this.messages.add( firstMessage );
 	}
 
-	public List<Message> getMessages() {
-		return messages;
+	public List<Message> getMessagesFromLast() {
+		return messages.stream().sorted( Collections.reverseOrder() ).collect( Collectors.toList() );
 	}
 
 	public void pushMessage( Message message ) {

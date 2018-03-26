@@ -28,7 +28,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  * @author Fabio Massimo Ercoli
  */
 @Entity
-public class Message {
+public class Message implements Comparable<Message> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "post_gen")
@@ -110,4 +110,8 @@ public class Message {
 		return Objects.hash( username, moment );
 	}
 
+	@Override
+	public int compareTo(Message o) {
+		return this.moment.compareTo( o.moment );
+	}
 }

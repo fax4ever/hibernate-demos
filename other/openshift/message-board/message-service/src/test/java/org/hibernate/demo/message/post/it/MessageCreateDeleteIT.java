@@ -43,7 +43,7 @@ public class MessageCreateDeleteIT {
 		// add 10 messages
 		for (int i=0; i<10; i++) {
 			Message message = new Message( USERNAME, "Message content: " + i );
-			messageService.insertPost( message );
+			messageService.addMessage( message );
 			messageIds.add( message.getId() );
 		}
 
@@ -65,7 +65,7 @@ public class MessageCreateDeleteIT {
 		// add other 10 messages
 		for (int i=0; i<10; i++) {
 			Message message = new Message( USERNAME, "Message content: " + i );
-			messageService.insertPost( message );
+			messageService.addMessage( message );
 			messageIds.add( message.getId() );
 		}
 

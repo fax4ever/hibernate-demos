@@ -50,13 +50,13 @@ public class MessageService {
 			return new ArrayList<>();
 		}
 
-		return board.getMessages();
+		return board.getMessagesFromLast();
 
 	}
 
 	@POST
 	@Consumes( MediaType.APPLICATION_JSON )
-	public void insertPost( Message message ) {
+	public void addMessage( Message message ) {
 
 		Set<Tag> tagSet = message.getTags().stream().map( tag -> {
 			Tag loaded = tags.find( tag.toString() );

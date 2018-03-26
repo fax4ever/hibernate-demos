@@ -71,7 +71,7 @@ public class MessageLoadIT {
 		messages[5].addTag( "play" );
 
 		for (int i=0; i<messages.length; i++) {
-			testSubject.insertPost( messages[i] );
+			testSubject.addMessage( messages[i] );
 		}
 	}
 
