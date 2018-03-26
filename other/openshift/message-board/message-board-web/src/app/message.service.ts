@@ -33,4 +33,8 @@ export class MessageService {
     return this.http.post<Message>("message-service/messages", message, httpOptions);
   }
 
+  delete(id : number): Observable<any> {
+    return this.http.delete<Message>(`message-service/messages/${id}`, httpOptions)
+  }
+
 }

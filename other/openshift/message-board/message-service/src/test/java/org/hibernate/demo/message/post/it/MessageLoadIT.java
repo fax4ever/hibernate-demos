@@ -8,10 +8,13 @@ package org.hibernate.demo.message.post.it;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -21,7 +24,7 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 
 import org.hibernate.demo.message.post.core.entity.Message;
 import org.hibernate.demo.message.post.core.service.MessageService;
-import org.hibernate.demo.message.post.core.statup.FillCache;
+import org.hibernate.demo.message.post.core.service.exception.ResourceNotFoundException;
 import org.hibernate.demo.message.post.util.DeploymentUtil;
 
 import org.slf4j.Logger;
@@ -30,7 +33,10 @@ import org.slf4j.Logger;
  * @author Fabio Massimo Ercoli
  */
 @RunWith(Arquillian.class)
-public class MessageIT {
+public class MessageLoadIT {
+
+	public static final String USERNAME = "fabio";
+	public static final String USERNAME_2 = "andrea";
 
 	@Deployment
 	public static WebArchive create() {
@@ -41,10 +47,45 @@ public class MessageIT {
 	private MessageService testSubject;
 
 	@Inject
-	private FillCache createdCache;
-
-	@Inject
 	private Logger log;
+
+	public Message[] messages = new Message[6];
+
+	@Before
+	public void before() {
+
+		messages[0] = new Message( USERNAME, "Here I am!" );
+		messages[1] = new Message( USERNAME, "Here I am! II" );
+		messages[2] = new Message( USERNAME, "Here I am! III" );
+
+		messages[0].addTag( "music" );
+		messages[1].addTag( "stuff" );
+		messages[2].addTag( "play" );
+
+		messages[3] = new Message( USERNAME_2, "Hello!" );
+		messages[4] = new Message( USERNAME_2, "Hello! II" );
+		messages[5] = new Message( USERNAME_2, "Hello! III" );
+
+		messages[3].addTag( "music" );
+		messages[4].addTag( "stuff" );
+		messages[5].addTag( "play" );
+
+		for (int i=0; i<messages.length; i++) {
+			testSubject.insertPost( messages[i] );
+		}
+	}
+
+	@After
+	public void after() {
+		Arrays.stream(messages).forEach( message -> {
+			try {
+				testSubject.deleteMessage( message.getId() );
+			}
+			catch (ResourceNotFoundException e) {
+				e.printStackTrace();
+			}
+		} );
+	}
 
 	@Test
 	public void test() throws Exception {
@@ -53,8 +94,8 @@ public class MessageIT {
 		List<Message> andreaMessages = null;
 
 		for (int i=0; i<20; i++) {
-			fabioMessages = testSubject.findMessagesByUser( FillCache.USERNAME );
-			andreaMessages = testSubject.findMessagesByUser( FillCache.USERNAME_2 );
+			fabioMessages = testSubject.findMessagesByUser( USERNAME );
+			andreaMessages = testSubject.findMessagesByUser( USERNAME_2 );
 			log.info( "{} fabioMessages is now present on board: {}", fabioMessages.size(), fabioMessages );
 			log.info( "{} andreaMessages is now present on board: {}", andreaMessages.size(), andreaMessages );
 
@@ -71,12 +112,12 @@ public class MessageIT {
 
 		// order is not important!
 		for ( int i=0; i<3; i++ ) {
-			assertTrue( "Fabio's board does not contain post: " + createdCache.getPost( i ), fabioMessages.contains( createdCache.getPost( i ) ) );
+			assertTrue( "Fabio's board does not contain post: " + messages[ i ], fabioMessages.contains( messages[ i ] ) );
 		}
 
 		// order is not important!
 		for ( int i=3; i<6; i++ ) {
-			assertTrue( "Andrea's board does not contain post: " + createdCache.getPost( i ), andreaMessages.contains( createdCache.getPost( i ) ) );
+			assertTrue( "Andrea's board does not contain post: " + messages[ i ], andreaMessages.contains( messages[ i ] ) );
 		}
 
 	}

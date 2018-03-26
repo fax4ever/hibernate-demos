@@ -35,4 +35,9 @@ export class BoardDetailComponent implements OnInit {
       .subscribe(messages => this.messages = messages);
   }
 
+  delete(id: number): void {
+    this.service.delete(id)
+      .subscribe(() => this.getMessages());
+  }
+
 }
