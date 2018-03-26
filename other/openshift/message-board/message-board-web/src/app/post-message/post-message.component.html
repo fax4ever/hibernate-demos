@@ -1,3 +1,10 @@
-<p>
-  post-message works!
-</p>
+<div class="container-fluid">
+  <div class="card">
+    <div class="card-body">
+      <div class="form-group">
+        <textarea [(ngModel)]="text" class="form-control" rows="5"></textarea>
+      </div>
+      <button class="btn btn-danger" (click)="postMessage()">Public</button>
+    </div>
+  </div>
+</div>
