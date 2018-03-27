@@ -33,4 +33,14 @@ oc start-build account-service --from-dir=./account-service --follow
 oc new-app --image-stream=eap71-openshift:latest~./nocontent -e OPENSHIFT_KUBE_PING_NAMESPACE=message --name=message-service
 oc start-build message-service --from-dir=./message-service --follow
 
-oc get all
+# Setting liveness probes
+oc set probe dc/account-service --liveness --failure-threshold 3 --initial-delay-seconds 30 --get-url=http://:8080/account-service/user
+oc set probe dc/message-service --liveness --failure-threshold 3 --initial-delay-seconds 30 --get-url=http://:8080/message-service/messages/fabio
+oc set probe dc/message-board-web --liveness --failure-threshold 3 --initial-delay-seconds 30 --get-url=http://:8080/
+
+# Setting readiness probes
+oc set probe dc/account-service --readiness --failure-threshold 3 --initial-delay-seconds 30 --get-url=http://:8080/account-service/user
+oc set probe dc/message-service --readiness --failure-threshold 3 --initial-delay-seconds 30 --get-url=http://:8080/message-service/messages/fabio
+oc set probe dc/message-board-web --readiness --failure-threshold 3 --initial-delay-seconds 30 --get-url=http://:8080/
+
+oc get pods -w
