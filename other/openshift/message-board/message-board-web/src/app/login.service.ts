@@ -30,7 +30,6 @@ export class LoginService {
         if (user.id == null) {
           console.log('user is empty');
           Observable.throw('Username or password is incorrect');
-
         } else {
           console.log('a new user ');
           localStorage.setItem('currentUser', JSON.stringify(user));

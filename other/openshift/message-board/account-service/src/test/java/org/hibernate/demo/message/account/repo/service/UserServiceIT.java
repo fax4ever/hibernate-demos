@@ -20,6 +20,9 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.IsNull.notNullValue;
+
 /**
  * @author Andrea Boriero
  */
@@ -36,5 +39,12 @@ public class UserServiceIT {
 	@Test(expected = EJBException.class)
 	public void testFindUser(){
 		userService.findByUsername( "NON_EXISTING_USER" );
+	}
+
+	@Test
+	public void testCreateUser() {
+		User user = new User( "fabio" );
+		User createdUser = userService.createNewUser( user );
+		assertThat(createdUser.getId(), notNullValue());
 	}
 }
