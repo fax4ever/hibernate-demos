@@ -41,13 +41,6 @@ public class MessageService {
 	private Logger log;
 
 	@GET
-	@Path( "{username}" )
-	@Produces( MediaType.APPLICATION_JSON )
-	public List<Message> findMessagesUser( @PathParam( "username" ) String username ) {
-		return findMessagesByUser( username );
-	}
-
-	@GET
 	@Produces( MediaType.APPLICATION_JSON )
 	public List<Message> findMessagesByUser( @QueryParam( "username" ) String username ) {
 

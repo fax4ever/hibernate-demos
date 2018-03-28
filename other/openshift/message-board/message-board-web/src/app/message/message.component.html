@@ -5,10 +5,11 @@
 				<a *ngFor="let user of users"
 					routerLink="/message/{{user.userName}}" (click)="onSelect(user)"
 					[class.text-danger]="user.userName === userName"
-					[class.text-info]="user.userName != userName"> <span
-					class="badge" [class.badge-danger]="user.userName === userName"
-					[class.badge-info]="user.userName != userName">{{ user.id }}</span>
-					{{ user.userName }}
+					[class.text-info]="user.userName != userName">
+          <div>
+            <span class="badge" [class.badge-danger]="user.userName === userName" [class.badge-info]="user.userName != userName">{{ user.id }}</span>
+            {{ user.userName }}
+          </div>
 				</a>
 			</div>
 		</div>
