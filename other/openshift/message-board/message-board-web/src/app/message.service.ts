@@ -26,15 +26,15 @@ export class MessageService {
     return this.http.get<Message[]>(`message-service/messages?username=${term}`);
   }
 
-  postMessage(body : string): Observable<any> {
-    var message = new Message();
-    message.username = this.username
+  postMessage(body: string): Observable<any> {
+    const message = new Message();
+    message.username = this.username;
     message.body = body;
-    return this.http.post<Message>("message-service/messages", message, httpOptions);
+    return this.http.post<Message>('message-service/messages', message, httpOptions);
   }
 
-  delete(id : number): Observable<any> {
-    return this.http.delete<Message>(`message-service/messages/${id}`, httpOptions)
+  delete(id: number): Observable<any> {
+    return this.http.delete<Message>(`message-service/messages/${id}`, httpOptions);
   }
 
 }

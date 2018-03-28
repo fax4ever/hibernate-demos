@@ -22,7 +22,7 @@ export class LoginService {
   }
 
   login(userName: String): Observable<User> {
-    const url = `app/users/?id=1`;
+    const url = `http://web-message-board.192.168.42.57.nip.io//users/?username=${userName}`;
     console.log(url);
     return this.http.get<User>(url).map(
       user => {

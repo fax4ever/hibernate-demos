@@ -1,7 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit, Input} from '@angular/core';
 
-import { Message } from '../message';
-import { MessageService }  from '../message.service';
+import {Message} from '../message';
+import {MessageService} from '../message.service';
 
 @Component({
   selector: 'app-board-detail',
@@ -12,10 +12,10 @@ export class BoardDetailComponent implements OnInit {
   private _userName: string;
   messages: Message[];
 
-  constructor( private service: MessageService ) { }
+  constructor(private service: MessageService) {}
 
   ngOnInit() {
-    console.log("init BoardDetailComponent");
+    console.log('init BoardDetailComponent');
     this.getMessages();
   }
 
@@ -25,7 +25,7 @@ export class BoardDetailComponent implements OnInit {
 
   @Input()
   set userName(userName: string) {
-    console.log("user changed: " + this._userName + " -> " + userName);
+    console.log('user changed: ' + this._userName + ' -> ' + userName);
     this._userName = userName;
     this.getMessages();
   }
