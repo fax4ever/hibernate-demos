@@ -44,8 +44,9 @@ public class UserService {
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public void createNewUser(User user) {
+	public User createNewUser(User user) {
 		repo.add( user );
+		return user;
 	}
 
 }

@@ -36,7 +36,7 @@ public class DeploymentUtil {
 				.jtaDataSource( "java:jboss/datasources/ExampleDS" )
 				.getOrCreateProperties()
 				// We want to use the ORM from this build instead of the one coming with WildFly
-				.createProperty().name( "jboss.as.jpa.providerModule" ).value( "org.hibernate:" + ORM_MINOR_VERSION ).up()
+//				.createProperty().name( "jboss.as.jpa.providerModule" ).value( "org.hibernate:" + ORM_MINOR_VERSION ).up()
 				.createProperty().name( "hibernate.hbm2ddl.auto" ).value( "create-drop" ).up()
 				.up().up();
 	}

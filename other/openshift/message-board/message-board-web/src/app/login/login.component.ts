@@ -11,14 +11,14 @@ import {User} from '../user';
 })
 export class LoginComponent implements OnInit {
 
-  user: User = {'id': 0, 'userName': ''};
+  user: User;
   loading = false;
   returnUrl: string;
 
   constructor(
     private loginService: LoginService,
     private route: ActivatedRoute,
-    private router: Router, ) {
+    private router: Router ) {
     this.loginService.logout();
 
     // get return url from route parameters or default to '/'

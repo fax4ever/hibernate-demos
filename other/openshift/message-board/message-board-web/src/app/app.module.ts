@@ -7,6 +7,7 @@ import {AppRoutingModule} from './app-routing.module';
 
 import {LoginService} from './login.service';
 import {MessageService} from './message.service';
+import {AccountService} from './account.service';
 
 import {AppComponent} from './app.component';
 import {LoginComponent} from './login/login.component';
@@ -31,7 +32,7 @@ import {MessageComponent} from './message/message.component';
     PostMessageComponent,
     MessageComponent
   ],
-  providers: [LoginService, MessageService],
+  providers: [LoginService, MessageService, AccountService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
