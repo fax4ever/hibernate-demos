@@ -11,7 +11,7 @@ import {User} from '../user';
 })
 export class LoginComponent implements OnInit {
 
-  user: User;
+  user: User = {'id': 0, 'userName': ''};
   loading = false;
   returnUrl: string;
 

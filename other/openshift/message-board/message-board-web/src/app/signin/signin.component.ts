@@ -11,17 +11,20 @@ import {User} from '../user';
 })
 export class SigninComponent implements OnInit {
 
-  user: User;
+  user: User = {'id': 0, 'userName': ''};
+  creating = false;
 
   constructor(private accountService: AccountService,
     private route: ActivatedRoute,
-    private router: Router ) {}
+    private router: Router) {}
 
   ngOnInit() {
   }
 
   createAccount(): void {
+    this.creating = true;
     this.accountService.createAccount(this.user);
+    this.creating = false;
   }
 
 }

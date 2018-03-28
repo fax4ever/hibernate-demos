@@ -6,6 +6,6 @@
 		<div *ngIf="f.submitted && !username.valid" class="help-block">Username is required</div>
 	</div>
 	<div class="form-group">
-		<button [disabled]="createAccount" class="btn btn-primary">Create</button>
+		<button [disabled]="creating" class="btn btn-primary">Create</button>
 	</div>
 </form>
